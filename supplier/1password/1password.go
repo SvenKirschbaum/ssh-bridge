@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 )
 
@@ -231,6 +232,7 @@ func (k *Supplier) callOp(stdin string, arg ...string) (string, error) {
 	arg = append(arg, "--config", internal.CacheDirectory, "--session", k.sessionKey)
 
 	command := exec.Command(k.cliFile, arg...)
+	command.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 
 	var outb, errb bytes.Buffer
 	command.Stdout = &outb
