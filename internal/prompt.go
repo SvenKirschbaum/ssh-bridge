@@ -73,7 +73,7 @@ func (p *Prompt) loop() {
 		case system.DestroyEvent:
 			p.w.Close()
 			close(p.Output)
-			break
+			return
 		case system.FrameEvent:
 			e.Frame(p.frame(layout.NewContext(&ops, e)))
 		}
